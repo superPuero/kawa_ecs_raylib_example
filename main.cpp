@@ -3,7 +3,7 @@
 
 #include "kwecs.h"
 
-struct position 
+struct position
 {
 	float x;
 	float y;
@@ -73,7 +73,7 @@ void handle_ball_movenet(kawa::ecs::registry& reg, float delta_time, float ball_
 		reg.query([](score_counter& sc) {sc.player1_score++; });
 	}
 
-	if(pos.x <= 0)
+	if (pos.x <= 0)
 	{
 		vel.x *= -1;
 		pos = { 400, 400 };
@@ -146,11 +146,11 @@ int main()
 
 	using namespace kawa::ecs;
 
-	registry reg(255);
+	registry reg({});
 
-	reg.entity_with(ball{}, position{ 400,400 }, velocity{-0.5, 0.5});
-	reg.entity_with(player1{}, position{ 100,400 }, velocity{0,0});
-	reg.entity_with(player2{}, position{ 700,400 }, velocity{0,0});
+	reg.entity_with(ball{}, position{ 400,400 }, velocity{ -0.5, 0.5 });
+	reg.entity_with(player1{}, position{ 100,400 }, velocity{ 0,0 });
+	reg.entity_with(player2{}, position{ 700,400 }, velocity{ 0,0 });
 	reg.entity_with(score_counter{}, position{ 400,100 });
 
 	InitWindow(800, 800, "kawa::ecs ping-pong");
@@ -162,7 +162,7 @@ int main()
 	{
 		delta_time = GetFrameTime();
 		BeginDrawing();
-		
+
 		reg.query(handle_player1_input);
 		reg.query(handle_player2_input);
 		reg.query(handle_players_movement, delta_time, players_speed);
